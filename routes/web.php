@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\colorController;
+use App\Http\Controllers\paletteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,9 @@ Route::get('/dashboard', function () {
     return view('welcome');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//Route::get('/logout', 'App\Http\Controllers\Auth\AuthenticatedSessionController');
+Route::redirect('/generate', 'generate');
+Route::resource('generate', colorController::class);
+
+Route::resource('palette', paletteController::class);
 
 require __DIR__.'/auth.php';

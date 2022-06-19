@@ -18,21 +18,39 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+            .colorblock{
+                height: 90vh;
+            }
+            .bottombutton{
+                height: 5vh;
+            }
         </style>
     </head>
-    <body>
+    <body class="h-full">
         <x-navbar/>
-        <div class="flex h-screen">
+        <div class="flex">
             @if (count($colors) == 0)
                 <p color='red'> There are no records in the database!</p>
             @else
             @foreach ($colors as $col)
-                <div class="flex flex-col h-screen w-screen justify-end pb-24 font-bold" style="background-color: {{ $col->hexCode }}">
+                <div class="colorblock flex flex-col w-screen justify-end pb-24 font-bold" style="background-color: {{ $col->hexCode }}">
                     <h2 class="text-center">{{ $col->colorName }}</h2>
                     <h2 class="text-center">{{ strtoupper($col->hexCode) }}</h2>
                 </div>
             @endforeach
             @endif
             </div>
+        <div class="flex">
+            <button class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white" onclick="location.href = '/generate';">
+                <h3>Generate New</h3>
+            </button>
+            <form class="hidden" id="form" method="POST" action="{{action([App\Http\Controllers\paletteController::class, 'store'])}}">
+                @csrf
+                @foreach ($colors as $col)
+                    <input type="hidden" name="colors[]" value="{{ $col->id }}"/>
+                @endforeach
+            </form>
+            <input type="submit" value="Save palette" form="form" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white">
+        </div>
     </body>
 </html>
