@@ -21,16 +21,9 @@
         </style>
     </head>
     <body class="bg-[url('../../storage/app/public/BG.jpg')]">
-        <div class="flex bg-slate-800 space-x-4 text-white">
-                <a href="" class="ml-4">Home</a>
-                <a href="/generate">Generate</a>
-                <a href="">Palettes</a>
-                <div class="absolute right-0">
-                <a href=""">Register</a>
-                <a href="" class="px-4">Login</a>
-                </div>
-        </div>
+        <x-navbar/>
         <div class="flex justify-center mt-96">
             <h1 class="text-8xl text-white font-bold border-2 bg-slate-800 p-12 rounded-full">Welcome to PaletteGen!</h1>
+        </div>
     </body>
 </html>

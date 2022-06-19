@@ -5,8 +5,21 @@
             <a href="/generate">Generate</a>
             <a href="">Palettes</a>
             <div class="absolute right-0">
-            <a href=""">Register</a>
-            <a href="" class="px-4">Login</a>
+            @if (Auth::check())
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a href="" class="pr-4">{{ Auth::user()->name }}</a>
+                <button :href="route('logout')"
+                    onclick="event.preventDefault();
+                    this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                </button>
+            </form>
+            @else
+            <a href="/register">Register</a>
+            <a href="/login" class="px-4">Login</a>
+            @endif
             </div>
     </div>
 </div>
