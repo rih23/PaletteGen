@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class usersManageMiddleware
+class profilePageMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,6 @@ class usersManageMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(\Auth::check()==false){
-            return redirect('/');
-        }
-        if(\Auth::user()->role!='admin'){
             return redirect('/');
         }
         return $next($request);

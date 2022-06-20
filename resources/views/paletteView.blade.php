@@ -27,8 +27,8 @@
             <form class="" id="search" method="GET" action="{{action([App\Http\Controllers\paletteController::class, 'index'])}}">
                 @csrf
                 <div class="flex mt-3">
-                    <input type="text" name="name" value=""/>
-                    <input type="submit" value="Search" class="bg-slate-800 border-2 border-cyan-600 bottombutton font-bold text-white">
+                    <input type="text" name="name" value="" placeholder="Search by User" class="text-center"/>
+                    <input type="submit" value="Search" class="hover:text-blue-400 bg-slate-800 border-2 border-cyan-600 bottombutton font-bold text-white p-2">
                 </div>
             </form>
         </div>
@@ -42,7 +42,9 @@
                 <div class="my-3 rounded-md">
                     <div class="flex bg-slate-600">
                         <h1 class="text-white bold text-xl">Made by {{ App\Models\User::find($pal->user_id)->name }}</h1>
+                        @if(\Auth::check() && \Auth::user()->role=='admin')
                         <input type="submit" value="Delete" form="delete" class="absolute right-8 text-red-600 font-bold hover:text-red-200">
+                        @endif
                     </div>
                     <div class="flex">
                         @foreach($pal->colors as $col)

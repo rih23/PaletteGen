@@ -29,8 +29,9 @@ Route::resource('generate', colorController::class);
 Route::redirect('/palettes', 'palettes');
 Route::resource('palettes', paletteController::class);
 
-Route::redirect('/profile', 'profile');
+//Route::redirect('/profile', 'profile');
 Route::resource('profile', userController::class);
 
 Route::get('/users', [userController::class, 'usersManage'])->middleware('usersPageAccess');
+Route::get('/profile', [userController::class, 'index'])->middleware('profilePage');
 require __DIR__.'/auth.php';

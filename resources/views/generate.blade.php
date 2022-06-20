@@ -41,7 +41,8 @@
             @endif
             </div>
         <div class="flex">
-            <button class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white" onclick="location.href = '/generate';">
+            <button class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white hover:bg-slate-700"
+             onclick="location.href = '/generate';">
                 <h3>Generate New</h3>
             </button>
             <form class="hidden" id="form" method="POST" action="{{action([App\Http\Controllers\paletteController::class, 'store'])}}">
@@ -51,7 +52,7 @@
                 @endforeach
             </form>
             @if (Auth::check())
-                <input type="submit" value="Save palette" form="form" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white">
+                <input type="submit" value="Save palette" form="form" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white hover:bg-slate-700">
             @endif
             @include('sweetalert::alert')
         </div>

@@ -17,6 +17,7 @@ class ColorSeeder extends Seeder
 
     public function run()
     {
+        //https://github.com/meodai/color-names Colors are from this repo.
         $csvFile = fopen(base_path("database/data/colornames.csv"), "r");
 
         $firstline = true;
