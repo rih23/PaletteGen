@@ -20,9 +20,16 @@
             }
         </style>
     </head>
-    <body class="h-full">
+    <body class="h-full bg-slate-500">
         <x-navbar/>
         <h1 class="text-2xl text-center bg-slate-700 text-white underline">User created palettes</h1>
+        <form class="" id="search" method="GET" action="{{action([App\Http\Controllers\paletteController::class, 'index'])}}">
+            @csrf
+            <div class="flex w-4">
+            <input type="text" name="name" value=""/>
+            <input type="submit" value="Search" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white">
+            </div>
+        </form>
         <div class="flex flex-col">
             <div>
                 @foreach ($palettes as $pal)

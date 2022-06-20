@@ -1022,6 +1022,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+}
 .bg-\[url\(\'\.\.\/\.\.\/storage\/app\/public\/BG\.jpg\'\)\] {
   background-image: url(/images/BG.jpg?135746dd687da6a5ff719f8d07e27083);
 }

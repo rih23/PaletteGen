@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Palette;
 use App\Models\Colors;
+use RealRashid\SweetAlert\Facades\Alert;
 class paletteController extends Controller
 {
     /**
@@ -12,10 +13,28 @@ class paletteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $palettes = Palette::with('colors')->get();
-        return view('paletteView', compact('palettes'));
+        if(!is_null($request->name)){
+            $name = $request->name;
+            $users = \App\Models\User::where('name','like','%'.$name.'%')->get();
+            $ids = [];
+            $palettes = [];
+            foreach($users as $user){
+                array_push($ids, $user->id);
+            }
+            foreach($ids as $id){
+                $palettesForId = Palette::with('colors')->where('user_id', $id)->get();
+                foreach($palettesForId as $pal){
+                    array_push($palettes, $pal);
+                }
+            }
+            return view('paletteView', compact('palettes'));
+        }
+        else{
+            $palettes = Palette::with('colors')->get();
+            return view('paletteView', compact('palettes'));
+        }
     }
 
     /**
@@ -41,7 +60,7 @@ class paletteController extends Controller
 
         $palette->save();
         $palette->colors()->attach($request->colors);
-        \Session::flash('success', 'Palette added to your profile!');
+        Alert::success('Palette Saved', 'The palette has been saved to your profile');
         return redirect()->back();
     }
 

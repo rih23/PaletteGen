@@ -29,11 +29,11 @@
     <body class="h-full">
         <x-navbar/>
         @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{ $message }}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ $message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="flex">
             @if (count($colors) == 0)
                 <p color='red'> There are no records in the database!</p>
@@ -59,6 +59,7 @@
             @if (Auth::check())
                 <input type="submit" value="Save palette" form="form" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white">
             @endif
+            @include('sweetalert::alert')
         </div>
     </body>
 </html>
