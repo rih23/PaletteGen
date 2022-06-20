@@ -95,6 +95,6 @@ class userController extends Controller
             $pal->delete();
         }
         User::where('id', $id)->delete();
-
+        return redirect()->back();
     }
 }
