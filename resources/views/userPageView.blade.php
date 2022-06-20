@@ -18,42 +18,35 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
-            .colorblock{
-                height: 90vh;
-            }
-            .bottombutton{
-                height: 5vh;
-            }
         </style>
     </head>
-    <body class="h-full">
+    <body class="h-full bg-slate-500">
         <x-navbar/>
-        <div class="flex">
-            @if (count($colors) == 0)
-                <p color='red'> There are no records in the database!</p>
-            @else
-            @foreach ($colors as $col)
-                <div class="colorblock flex flex-col w-screen justify-end pb-24 font-bold" style="background-color: {{ $col->hexCode }}">
-                    <h2 class="text-center">{{ $col->colorName }}</h2>
-                    <h2 class="text-center">{{ strtoupper($col->hexCode) }}</h2>
+        <h1 class="text-2xl text-center bg-slate-700 text-white underline">Your palettes</h1>
+        <div class="flex flex-col m-6">
+                @foreach ($palettes as $pal)
+                <form method="POST" id="delete" action="{{action([App\Http\Controllers\paletteController::class, 'destroy'], $pal->id)}}">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <div class="my-3 rounded-md">
+                    <div class="flex bg-slate-600">
+                        <h1 class=" text-white bold text-xl">Made by {{ App\Models\User::find($pal->user_id)->name }}</h1>
+                        <input type="submit" value="Delete" form="delete" class="absolute right-8 text-red-600 font-bold hover:text-red-200">
+                    </div>
+                <div class="flex">
+                    @foreach($pal->colors as $col)
+                    <div class="colorblock w-screen justify-end pb-24 font-bold" style="background-color: {{ $col->hexCode }}">
+                        <h2 class="text-center">{{ $col->colorName }}</h2>
+                        <h2 class="text-center">{{ strtoupper($col->hexCode) }}</h2>
+                    </div>
+                    @endforeach
                 </div>
-            @endforeach
-            @endif
             </div>
-        <div class="flex">
-            <button class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white" onclick="location.href = '/generate';">
-                <h3>Generate New</h3>
-            </button>
-            <form class="hidden" id="form" method="POST" action="{{action([App\Http\Controllers\paletteController::class, 'store'])}}">
-                @csrf
-                @foreach ($colors as $col)
-                    <input type="hidden" name="colors[]" value="{{ $col->id }}"/>
                 @endforeach
-            </form>
-            @if (Auth::check())
-                <input type="submit" value="Save palette" form="form" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white">
-            @endif
-            @include('sweetalert::alert')
+            </div>
+
+
         </div>
     </body>
 </html>

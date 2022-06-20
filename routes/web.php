@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\paletteController;
+use App\Http\Controllers\userController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +28,8 @@ Route::resource('generate', colorController::class);
 
 Route::redirect('/palettes', 'palettes');
 Route::resource('palettes', paletteController::class);
+
+Route::redirect('/profile', 'profile');
+Route::resource('profile', userController::class);
 
 require __DIR__.'/auth.php';

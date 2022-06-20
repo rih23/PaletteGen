@@ -4,37 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Palette;
-use App\Models\Colors;
-use RealRashid\SweetAlert\Facades\Alert;
-class paletteController extends Controller
+
+class userController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if(!is_null($request->name)){
-            $name = $request->name;
-            $users = \App\Models\User::where('name','like','%'.$name.'%')->get();
-            $ids = [];
-            $palettes = [];
-            foreach($users as $user){
-                array_push($ids, $user->id);
-            }
-            foreach($ids as $id){
-                $palettesForId = Palette::with('colors')->where('user_id', $id)->get();
-                foreach($palettesForId as $pal){
-                    array_push($palettes, $pal);
-                }
-            }
-            return view('paletteView', compact('palettes'));
-        }
-        else{
-            $palettes = Palette::with('colors')->get();
-            return view('paletteView', compact('palettes'));
-        }
+        $palettes = Palette::with('colors')->where('user_id', \Auth::user()->id)->get();
+        return view('userPageView', compact('palettes'));
     }
 
     /**
@@ -55,13 +36,7 @@ class paletteController extends Controller
      */
     public function store(Request $request)
     {
-        $palette = new Palette;
-        $palette->user_id = \Auth::user()->id;
-
-        $palette->save();
-        $palette->colors()->attach($request->colors);
-        Alert::success('Palette Saved', 'The palette has been saved to your profile');
-        return redirect()->back();
+        //
     }
 
     /**
@@ -106,11 +81,6 @@ class paletteController extends Controller
      */
     public function destroy($id)
     {
-        $palette = Palette::findOrFail($id);
-        if($palette->user_id == \Auth::user()->id){
-            $palette->colors()->detach();
-            $palette->delete();
-            return redirect('/profile');
-        }
+        //
     }
 }
