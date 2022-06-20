@@ -18,47 +18,27 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
-            .colorblock{
-                height: 90vh;
-            }
-            .bottombutton{
-                height: 5vh;
-            }
         </style>
     </head>
     <body class="h-full">
         <x-navbar/>
-        @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{ $message }}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
-        <div class="flex">
-            @if (count($colors) == 0)
-                <p color='red'> There are no records in the database!</p>
-            @else
-            @foreach ($colors as $col)
-                <div class="colorblock flex flex-col w-screen justify-end pb-24 font-bold" style="background-color: {{ $col->hexCode }}">
-                    <h2 class="text-center">{{ $col->colorName }}</h2>
-                    <h2 class="text-center">{{ strtoupper($col->hexCode) }}</h2>
+        <h1 class="text-2xl text-center bg-slate-700 text-white underline">User created palettes</h1>
+        <div class="flex flex-col">
+            <div>
+                @foreach ($palettes as $pal)
+                <h1 class="bg-slate-600 text-white bold text-xl">Made by {{ App\Models\User::find($pal->user_id)->name }}</h1>
+                <div class="flex">
+                    @foreach($pal->colors as $col)
+                    <div class="colorblock w-screen justify-end pb-24 font-bold" style="background-color: {{ $col->hexCode }}">
+                        <h2 class="text-center">{{ $col->colorName }}</h2>
+                        <h2 class="text-center">{{ strtoupper($col->hexCode) }}</h2>
+                    </div>
+                    @endforeach
                 </div>
-            @endforeach
-            @endif
-            </div>
-        <div class="flex">
-            <button class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white" onclick="location.href = '/generate';">
-                <h3>Generate New</h3>
-            </button>
-            <form class="hidden" id="form" method="POST" action="{{action([App\Http\Controllers\paletteController::class, 'store'])}}">
-                @csrf
-                @foreach ($colors as $col)
-                    <input type="hidden" name="colors[]" value="{{ $col->id }}"/>
                 @endforeach
-            </form>
-            @if (Auth::check())
-                <input type="submit" value="Save palette" form="form" class="bg-slate-800 border-2 border-cyan-600 w-screen bottombutton font-bold text-white">
-            @endif
+            </div>
+
+
         </div>
     </body>
 </html>

@@ -14,7 +14,8 @@ class paletteController extends Controller
      */
     public function index()
     {
-        //
+        $palettes = Palette::with('colors')->get();
+        return view('paletteView', compact('palettes'));
     }
 
     /**
@@ -40,6 +41,8 @@ class paletteController extends Controller
 
         $palette->save();
         $palette->colors()->attach($request->colors);
+        \Session::flash('success', 'Palette added to your profile!');
+        return redirect()->back();
     }
 
     /**

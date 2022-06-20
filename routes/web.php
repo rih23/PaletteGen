@@ -25,6 +25,7 @@ Route::get('/dashboard', function () {
 Route::redirect('/generate', 'generate');
 Route::resource('generate', colorController::class);
 
-Route::resource('palette', paletteController::class);
+Route::redirect('/palettes', 'palettes');
+Route::resource('palettes', paletteController::class);
 
 require __DIR__.'/auth.php';

@@ -8,7 +8,7 @@
     <div class="flex bg-slate-800 space-x-4 text-white navbar">
             <a href="/" class="ml-4">Home</a>
             <a href="/generate">Generate</a>
-            <a href="">Palettes</a>
+            <a href="/palettes">Palettes</a>
             <div class="absolute right-0">
             @if (Auth::check())
 
