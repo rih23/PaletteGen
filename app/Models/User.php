@@ -46,4 +46,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function palettes(){
         return $this->hasMany(Palette::class);
     }
+
+    public function isAdmin(){
+        return $this->where('role', "admin")->exists();
+    }
 }

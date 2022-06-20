@@ -112,5 +112,13 @@ class paletteController extends Controller
             $palette->delete();
             return redirect('/profile');
         }
+        elseif (\Auth::user()->role == 'admin') {
+            $palette->colors()->detach();
+            $palette->delete();
+            return redirect('/palettes');
+        }
+        else{
+            return redirect('/palettes');
+        }
     }
 }

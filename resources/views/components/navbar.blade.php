@@ -14,11 +14,14 @@
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
+                @if (Auth::user()->role=='admin')
+                <a href="/users" class="underline font-bold pr-4 hover:text-blue-400">Users</a>
+                @endif
                 <a href="/profile" class="pr-4 hover:text-blue-400">{{ Auth::user()->name }}</a>
                 <button :href="route('logout')"
                     onclick="event.preventDefault();
                     this.closest('form').submit();" class = "hover:text-blue-400 mr-4">
-                                {{ __('Log Out') }}
+                                {{ __('Logout') }}
                 </button>
             </form>
             @else

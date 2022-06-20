@@ -32,4 +32,5 @@ Route::resource('palettes', paletteController::class);
 Route::redirect('/profile', 'profile');
 Route::resource('profile', userController::class);
 
+Route::get('/users', [userController::class, 'usersManage'])->middleware('usersPageAccess');
 require __DIR__.'/auth.php';

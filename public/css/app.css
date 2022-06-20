@@ -984,6 +984,9 @@ select {
 .border-2 {
   border-width: 2px;
 }
+.border-4 {
+  border-width: 4px;
+}
 .border-t {
   border-top-width: 1px;
 }
@@ -1072,6 +1075,9 @@ select {
 }
 .p-12 {
   padding: 3rem;
+}
+.p-4 {
+  padding: 1rem;
 }
 .px-4 {
   padding-left: 1rem;

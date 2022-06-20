@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Palette;
+use App\Models\User;
 
 class userController extends Controller
 {
@@ -16,6 +17,13 @@ class userController extends Controller
     {
         $palettes = Palette::with('colors')->where('user_id', \Auth::user()->id)->get();
         return view('userPageView', compact('palettes'));
+    }
+
+
+    public function usersManage()
+    {
+        $users = User::all()->except(\Auth::id());
+        return view('manageUsersView', compact('users'));
     }
 
     /**
@@ -81,6 +89,12 @@ class userController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $palettes = Palette::with('colors')->where('user_id', $id)->get();
+        foreach($palettes as $pal){
+            $pal->colors()->detach();
+            $pal->delete();
+        }
+        User::where('id', $id)->delete();
+
     }
 }
