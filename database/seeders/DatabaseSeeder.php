@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ColorSeeder::class,
             userSeeder::class,
-            PaletteSeeder::class,
         ]);
 
         // \App\Models\User::factory()->create([
