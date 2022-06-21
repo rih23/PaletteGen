@@ -25,16 +25,17 @@
         <h1 class="text-2xl text-center bg-slate-700 text-white underline">Your palettes</h1>
         <div class="flex flex-col m-6">
                 @foreach ($palettes as $pal)
-                @if(\Auth::user()->isAdmin())
-                <form method="POST" id="delete" action="{{action([App\Http\Controllers\paletteController::class, 'destroy'], $pal->id)}}">
-                    @csrf
-                    @method('DELETE')
-                </form>
-                @endif
+
                 <div class="my-3 rounded-md">
                     <div class="flex bg-slate-600">
                         <h1 class=" text-white bold text-xl">Made by {{ App\Models\User::find($pal->user_id)->name }}</h1>
-                        <input type="submit" value="Delete" form="delete" class="absolute right-8 text-red-600 font-bold hover:text-red-200">
+                        @if($pal->user_id == \Auth::user()->id)
+                        <form method="POST" action="{{action([App\Http\Controllers\paletteController::class, 'destroy'], $pal->id)}}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="Delete"  class="absolute right-8 text-red-600 font-bold hover:text-red-200">
+                        </form>
+                        @endif
                     </div>
                 <div class="flex">
                     @foreach($pal->colors as $col)

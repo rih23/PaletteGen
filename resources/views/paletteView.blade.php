@@ -35,15 +35,15 @@
         <div class="flex flex-col m-6">
             <div>
                 @foreach ($palettes as $pal)
-                <form method="POST" id="delete" action="{{action([App\Http\Controllers\paletteController::class, 'destroy'], $pal->id)}}">
-                    @csrf
-                    @method('DELETE')
-                </form>
                 <div class="my-3 rounded-md">
                     <div class="flex bg-slate-600">
                         <h1 class="text-white bold text-xl">Made by {{ App\Models\User::find($pal->user_id)->name }}</h1>
                         @if(\Auth::check() && \Auth::user()->role=='admin')
-                        <input type="submit" value="Delete" form="delete" class="absolute right-8 text-red-600 font-bold hover:text-red-200">
+                        <form method="POST" action="{{action([App\Http\Controllers\paletteController::class, 'destroy'], $pal->id)}}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="Delete" class="absolute right-8 text-red-600 font-bold hover:text-red-200">
+                        </form>
                         @endif
                     </div>
                     <div class="flex">

@@ -1,6 +1,6 @@
-name
+name,email,password
 Janis,janis@gmail.com,password
 Peteris,peteris@gmail.com,password
-Karlis,janusij23@gmail.com,password
+Karlis,karlis@gmail.com,password
 Maris,maris@gmail.com,password
 Juris,juris@gmail.com,password

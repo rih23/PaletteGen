@@ -33,17 +33,16 @@
                     <td>Delete_User</td>
                 </tr>
                 @foreach ($users as $user)
-
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->palettes()->count() }}</td>
                     <td>
-                        <form method="POST" id="delete" action="{{action([\App\Http\Controllers\userController::class, 'destroy'], $user->id)}}">
+                        <form method="POST" action="{{action([\App\Http\Controllers\userController::class, 'destroy'], $user->id)}}">
                         @csrf
                         @method('DELETE')
-                        <input type="submit" value="Delete" form="delete" class="text-red-600 font-bold hover:text-red-200">
+                        <input type="submit" value="Delete" class="text-red-600 font-bold hover:text-red-200">
                         </form>
                     </td>
                 </tr>
